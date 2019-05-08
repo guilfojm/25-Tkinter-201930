@@ -26,6 +26,8 @@ def main():
     frame1.grid()
     frame2 = ttk.Frame(root, padding = 20)
     frame2.grid()
+    frame3 = ttk.Frame(root, padding = 5)
+    frame3.grid()
     # -------------------------------------------------------------------------
     # DONE: 4. After reading and understanding the m2e module,
     #   ** put a Button on the Frame. **
@@ -40,19 +42,23 @@ def main():
     button['command'] = lambda: hello()
 
     # -------------------------------------------------------------------------
-    # TODO: 6. After reading and understanding the m4e module,
+    # DONE: 6. After reading and understanding the m4e module,
     #   -- Put an Entry box on the Frame.
     #   -- Put a second Button on the Frame.
     #   -- Make this new Button, when pressed, print "Hello"
     #        on the Console if the current string in the Entry box
     #        is the string 'ok', but print "Goodbye" otherwise.
     # -------------------------------------------------------------------------
-    box = ttk.Entry(frame2)
-    print
-    box['command'] = lambda: print_contents(box)
+    my_entry_box = ttk.Entry(frame2)
+    my_entry_box.grid()
+
+    print_entry_button = ttk.Button(frame2, text='Enter a word')
+    print_entry_button['command'] = (lambda:
+                                     print_contents(my_entry_box))
+    print_entry_button.grid()
 
     # -------------------------------------------------------------------------
-    # TODO: 7.
+    # DONE: 7.
     #    -- Put a second Entry on the Frame.
     #    -- Put a third Button on the frame.
     #    -- Make this new Button respond to a button-press as follows:
@@ -66,6 +72,16 @@ def main():
     #    that is a "user error" -- do NOT deal with that.
     #
     # -------------------------------------------------------------------------
+
+    new_entry = ttk.Entry(frame3)
+    new_entry.grid()
+
+    print_word = ttk.Button(frame3, text = 'How many times would you like the word above to be printed?')
+    print_word['command'] = lambda:print_multiple(my_entry_box, new_entry)
+
+    print_word.grid()
+
+
     ####################################################################
     # HINT:
     #   You will need to obtain the INTEGER from the STRING
@@ -85,9 +101,21 @@ def main():
 def hello():
     print('hello')
 
-def print_contents(box):
-    contents = box.get()
-    print(contents)
+def print_contents(my_entry_box):
+    contents = my_entry_box.get()
+    if contents == 'ok':
+        print('hello')
+    else:
+        print('goodbye')
+
+def print_multiple(my_entry_box, new_entry):
+    contents = my_entry_box.get()
+    number = int(new_entry.get())
+    for k in range(number):
+        print(contents)
+
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
